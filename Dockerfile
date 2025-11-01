@@ -1,0 +1,23 @@
+FROM node:20-alpine
+
+# Install sqlite3 dependencies
+RUN apk add --no-cache sqlite python3 make g++
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+# Build TypeScript
+RUN npm run build
+
+# Run the bot
+CMD ["node", "dist/index.js"]
+
+

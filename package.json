@@ -1,0 +1,36 @@
+{
+  "name": "kleros-ping-pong-bot",
+  "version": "1.0.0",
+  "description": "Ethereum bot that monitors Ping events and automatically submits Pong transactions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "watch": "tsc --watch"
+  },
+  "keywords": [
+    "ethereum",
+    "bot",
+    "ping-pong",
+    "ethers",
+    "sepolia"
+  ],
+  "author": "Aymane",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "ethers": "^6.15.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/sqlite3": "^3.1.11",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
+
+
