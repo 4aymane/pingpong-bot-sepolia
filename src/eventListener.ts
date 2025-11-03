@@ -13,14 +13,13 @@ export function setupPingListener(
   db: Database,
   isShuttingDownRef: { value: boolean }
 ): void {
-  contract.on('Ping', async (log) => {
+  contract.on('Ping', async (event) => {
     // Don't process events during shutdown
     if (isShuttingDownRef.value) return
 
     try {
-      // Extract event data (ethers v6 format)
-      const txHash = log.transactionHash
-      const blockNumber = log.blockNumber
+      const txHash = event.log.transactionHash
+      const blockNumber = event.log.blockNumber
 
       console.log(`🔔 Ping detected: ${txHash} at block ${blockNumber}`)
 

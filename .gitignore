@@ -9,6 +9,11 @@ docs
 # Environment variables
 .env
 
+# SSH Keys
+*.pem
+*.key
+LightsailDefaultKey*
+
 # Database
 *.db
 *.db-journal

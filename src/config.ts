@@ -33,7 +33,7 @@ export function loadConfig(): BotConfig {
     startingBlock: process.env.STARTING_BLOCK
       ? parseInt(process.env.STARTING_BLOCK)
       : null,
-    dbPath: process.env.DB_PATH || './bot.db',
+    dbPath: process.env.DB_PATH || '/data/bot.db',
   }
 }
 

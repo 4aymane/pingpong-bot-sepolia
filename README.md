@@ -58,14 +58,18 @@ docker build -t ping-pong-bot .
 docker run -d \
   --name kleros-bot \
   --restart unless-stopped \
-  -v bot-data:/app \
+  -v bot-data:/data \
   --env-file .env \
   ping-pong-bot
 ```
 
 ### View Logs
 ```bash
+# Docker logs (real-time)
 docker logs -f kleros-bot
+
+# CloudWatch logs (persistent, web-based)
+# Automatically enabled if AWS credentials in .env
 ```
 
 ---
@@ -84,6 +88,15 @@ Optional:
 ```env
 STARTING_BLOCK=7000000  # Omit to use current block
 DB_PATH=./bot.db
+
+# CloudWatch logs (optional)
+AWS_ACCESS_KEY_ID=your_access_key_id
+AWS_SECRET_ACCESS_KEY=your_secret_access_key
+AWS_DEFAULT_REGION=eu-west-3
+
+# Deployment automation (optional - avoids prompts)
+LIGHTSAIL_IP=13.38.45.123
+SSH_KEY_PATH=LightsailDefaultKey-eu-west-3.pem
 ```
 
 ---
@@ -114,19 +127,17 @@ docker ps | grep kleros-bot
 
 ### View Logs
 ```bash
-# Real-time
+# Docker logs (cleared on redeploy)
 docker logs -f kleros-bot
 
-# Last 50 lines
-docker logs --tail 50 kleros-bot
-
-# Search for errors
-docker logs kleros-bot | grep ERROR
+# CloudWatch logs (persistent)
+# Go to AWS Console → CloudWatch → Log Groups → kleros-bot
+# Or: aws logs tail kleros-bot --follow
 ```
 
 ### Database Stats
 ```bash
-docker exec kleros-bot sqlite3 bot.db "SELECT COUNT(*) FROM ping_events;"
+docker exec kleros-bot sqlite3 /data/bot.db "SELECT COUNT(*) FROM ping_events;"
 ```
 
 ### Verify on Etherscan

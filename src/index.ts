@@ -33,13 +33,13 @@ async function main(): Promise<void> {
   // 5. Setup contract
   const contract = setupContract(config.contractAddress, wallet)
 
-  // 6. Determine starting block (use current if not specified)
+  // 6. Determine starting block fallback (if DB is empty on first run)
   let startingBlock = config.startingBlock
   if (startingBlock === null) {
     startingBlock = await provider.getBlockNumber()
-    console.log(`📍 No starting block specified, using current block: ${startingBlock}`)
+    console.log(`📍 Fallback starting block: ${startingBlock} (current)`)
   } else {
-    console.log(`📍 Starting from block: ${startingBlock}`)
+    console.log(`📍 Fallback starting block: ${startingBlock} (from config)`)
   }
 
   // 7. Scan for missed events (catch up from last run)
